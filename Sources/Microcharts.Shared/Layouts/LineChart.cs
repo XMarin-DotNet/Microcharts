@@ -50,14 +50,14 @@ namespace Microcharts
         {
             var valueLabelSizes = MeasureValueLabels();
             var footerHeight = CalculateFooterHeight(valueLabelSizes);
-            var headerHeight = CalculateHeaderHeight(valueLabelSizes);
+            var headerHeight = CalculateHeaderHeight(valueLabelSizes) + 70; // This is to allow spacing for popup annotation
             var itemSize = CalculateItemSize(width, height, footerHeight, headerHeight);
             var origin = CalculateYOrigin(itemSize.Height, headerHeight);
             var points = this.CalculatePoints(itemSize, origin, headerHeight);
 
             this.DrawArea(canvas, points, itemSize, origin);
             this.DrawLine(canvas, points, itemSize);
-            this.DrawPoints(canvas, points);
+            this.DrawPoints(canvas, points, origin);
             this.DrawFooter(canvas, points, itemSize, height, footerHeight);
             this.DrawValueLabel(canvas, points, itemSize, height, valueLabelSizes);
         }

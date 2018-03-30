@@ -44,6 +44,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcharts.Forms", "Microc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Samples.Forms.macOS", "Microcharts.Samples.Forms.macOS\Microcharts.Samples.Forms.macOS.csproj", "{5765ED35-AD7E-49BB-8701-B45D3C949501}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Samples.Forms.Uwp", "Microcharts.Samples.Forms.Uwp\Microcharts.Samples.Forms.Uwp.csproj", "{56B8CF8B-DEF4-45B2-BD6E-6566226EEB30}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Microcharts.Shared\Microcharts.Shared.projitems*{818a5879-1440-4b4e-b132-8df4cbbe0b7b}*SharedItemsImports = 13
@@ -417,6 +419,30 @@ Global
 		{5765ED35-AD7E-49BB-8701-B45D3C949501}.Release|x64.Build.0 = Release|Any CPU
 		{5765ED35-AD7E-49BB-8701-B45D3C949501}.Release|x86.ActiveCfg = Release|Any CPU
 		{5765ED35-AD7E-49BB-8701-B45D3C949501}.Release|x86.Build.0 = Release|Any CPU
+		{56B8CF8B-DEF4-45B2-BD6E-6566226EEB30}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{56B8CF8B-DEF4-45B2-BD6E-6566226EEB30}.Debug|ARM.ActiveCfg = Debug|ARM
+		{56B8CF8B-DEF4-45B2-BD6E-6566226EEB30}.Debug|ARM.Build.0 = Debug|ARM
+		{56B8CF8B-DEF4-45B2-BD6E-6566226EEB30}.Debug|ARM.Deploy.0 = Debug|ARM
+		{56B8CF8B-DEF4-45B2-BD6E-6566226EEB30}.Debug|iPhone.ActiveCfg = Debug|x86
+		{56B8CF8B-DEF4-45B2-BD6E-6566226EEB30}.Debug|iPhoneSimulator.ActiveCfg = Debug|x86
+		{56B8CF8B-DEF4-45B2-BD6E-6566226EEB30}.Debug|x64.ActiveCfg = Debug|x64
+		{56B8CF8B-DEF4-45B2-BD6E-6566226EEB30}.Debug|x64.Build.0 = Debug|x64
+		{56B8CF8B-DEF4-45B2-BD6E-6566226EEB30}.Debug|x64.Deploy.0 = Debug|x64
+		{56B8CF8B-DEF4-45B2-BD6E-6566226EEB30}.Debug|x86.ActiveCfg = Debug|x86
+		{56B8CF8B-DEF4-45B2-BD6E-6566226EEB30}.Debug|x86.Build.0 = Debug|x86
+		{56B8CF8B-DEF4-45B2-BD6E-6566226EEB30}.Debug|x86.Deploy.0 = Debug|x86
+		{56B8CF8B-DEF4-45B2-BD6E-6566226EEB30}.Release|Any CPU.ActiveCfg = Release|x86
+		{56B8CF8B-DEF4-45B2-BD6E-6566226EEB30}.Release|ARM.ActiveCfg = Release|ARM
+		{56B8CF8B-DEF4-45B2-BD6E-6566226EEB30}.Release|ARM.Build.0 = Release|ARM
+		{56B8CF8B-DEF4-45B2-BD6E-6566226EEB30}.Release|ARM.Deploy.0 = Release|ARM
+		{56B8CF8B-DEF4-45B2-BD6E-6566226EEB30}.Release|iPhone.ActiveCfg = Release|x86
+		{56B8CF8B-DEF4-45B2-BD6E-6566226EEB30}.Release|iPhoneSimulator.ActiveCfg = Release|x86
+		{56B8CF8B-DEF4-45B2-BD6E-6566226EEB30}.Release|x64.ActiveCfg = Release|x64
+		{56B8CF8B-DEF4-45B2-BD6E-6566226EEB30}.Release|x64.Build.0 = Release|x64
+		{56B8CF8B-DEF4-45B2-BD6E-6566226EEB30}.Release|x64.Deploy.0 = Release|x64
+		{56B8CF8B-DEF4-45B2-BD6E-6566226EEB30}.Release|x86.ActiveCfg = Release|x86
+		{56B8CF8B-DEF4-45B2-BD6E-6566226EEB30}.Release|x86.Build.0 = Release|x86
+		{56B8CF8B-DEF4-45B2-BD6E-6566226EEB30}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -438,6 +464,7 @@ Global
 		{1F1EDFB9-8305-46AD-B427-DDD92A87969E} = {C5532034-562E-484C-A575-9F4E65BCC269}
 		{EEF8A375-D304-48D1-BF66-29A442C708A1} = {3D966807-08D2-47A6-94C2-93B0A8AF2ECE}
 		{5765ED35-AD7E-49BB-8701-B45D3C949501} = {371D4457-9946-40A6-AE2E-2DF8AA43A69B}
+		{56B8CF8B-DEF4-45B2-BD6E-6566226EEB30} = {371D4457-9946-40A6-AE2E-2DF8AA43A69B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BCCD19D6-0567-4462-A494-5848BD95715F}

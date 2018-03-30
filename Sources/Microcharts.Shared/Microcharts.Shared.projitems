@@ -9,12 +9,14 @@
     <Import_RootNamespace>Microcharts.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Helpers\" />
     <Folder Include="$(MSBuildThisFileDirectory)Layouts\" />
     <Folder Include="$(MSBuildThisFileDirectory)Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\RadialHelpers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Structs\Point.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Structs\Rectangle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Structs\Size.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Layouts\BarChart.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Layouts\DonutChart.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Layouts\LineChart.cs" />

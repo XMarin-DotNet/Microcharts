@@ -60,6 +60,21 @@ namespace Microcharts
 		/// </summary>
 		public bool Selected { get; set; }
 
+		/// <summary>
+		/// 
+		/// </summary>
+		public string AnnotationLabel { get; set; }
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public string AnnotationHeadingLabel { get; set; }
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public string CategoryLabel { get; set; }
+
 		#endregion
 	}
 }

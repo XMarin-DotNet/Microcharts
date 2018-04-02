@@ -30,7 +30,7 @@ namespace Microcharts.Samples.Forms
 			{
 				var e = new Entry(value)
 				{
-					TextColor = new SKColor(255, 255, 255),
+					TextColor = new SKColor(255, 255, 255, 127),
 					Color = new SKColor(255, 255, 255),
 					Label = count.ToString(),
 					ValueLabel = " "					

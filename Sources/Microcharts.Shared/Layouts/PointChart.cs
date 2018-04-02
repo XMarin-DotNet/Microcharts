@@ -56,7 +56,7 @@ namespace Microcharts
 
 			this.DrawPointAreas(canvas, points, origin);
 			this.DrawPoints(canvas, points);
-			this.DrawFooter(canvas, points, itemSize, height, footerHeight);
+			this.DrawFooter(canvas, points, itemSize, height, footerHeight, headerHeight);
 			this.DrawValueLabel(canvas, points, itemSize, height, valueLabelSizes);
 		}
 
@@ -85,13 +85,14 @@ namespace Microcharts
 			return result.ToArray();
 		}
 
-		protected void DrawFooter(SKCanvas canvas, SKPoint[] points, SKSize itemSize, int height, float footerHeight)
+		protected void DrawFooter(SKCanvas canvas, SKPoint[] points, SKSize itemSize, int height, float footerHeight, float headerHeight)
 		{
-			this.DrawLabels(canvas, points, itemSize, height, footerHeight);
+			this.DrawLabels(canvas, points, itemSize, height, footerHeight, headerHeight);
 		}
 
-		protected void DrawLabels(SKCanvas canvas, SKPoint[] points, SKSize itemSize, int height, float footerHeight)
+		protected void DrawLabels(SKCanvas canvas, SKPoint[] points, SKSize itemSize, int height, float footerHeight, float headerHeight)
 		{
+			// Draw X Axis Labels
 			for (int i = 0; i < this.Entries.Count(); i++)
 			{
 				var entry = this.Entries.ElementAt(i);
@@ -103,7 +104,13 @@ namespace Microcharts
 					{
 						paint.TextSize = this.LabelTextSize;
 						paint.IsAntialias = true;
-						paint.Color = entry.TextColor;
+						paint.TextAlign = SKTextAlign.Center;
+
+						if (!entry.Selected)
+							paint.Color = entry.TextColor;
+						else
+							paint.Color = new SKColor(255, 255, 255);
+
 						paint.IsStroke = false;
 
 						var bounds = new SKRect();
@@ -122,9 +129,55 @@ namespace Microcharts
 							paint.MeasureText(text, ref bounds);
 						}
 
-						canvas.DrawText(text, point.X - (bounds.Width / 2), height - this.Margin + (this.LabelTextSize / 2), paint);
+						// Need to draw Month start and end points
+						if (i == 0) // First
+						{
+							canvas.DrawText("Apr", point.X, height - this.Margin - this.LabelTextSize - 5, paint);
+						}
+
+						if (i == this.Entries.Count() - 1) // End
+						{
+							canvas.DrawText("Apr", point.X, height - this.Margin - this.LabelTextSize - 5, paint);
+						}
+
+						canvas.DrawText(text, point.X, height - this.Margin, paint);
 					}
 				}
+			}
+
+			// Draw Y Axis Labels
+			var min = 0;
+			var max = Entries.Max(x => x.Value);
+
+			var minLabel = GetLabel(min);
+			var maxLabel = GetLabel(max);
+
+			using (var paint = new SKPaint())
+			{
+				paint.TextSize = this.LabelTextSize;
+				paint.IsAntialias = true;
+				paint.Color = new SKColor(255, 255, 255);
+				paint.IsStroke = false;
+				paint.TextAlign = SKTextAlign.Right;
+				canvas.DrawText(minLabel, this.Margin + 30, height - this.Margin - footerHeight, paint);
+			}
+
+			using (var paint = new SKPaint())
+			{
+				paint.TextSize = this.LabelTextSize;
+				paint.IsAntialias = true;
+				paint.Color = new SKColor(255, 255, 255);
+				paint.IsStroke = false;
+				paint.TextAlign = SKTextAlign.Right;
+				canvas.DrawText(maxLabel, this.Margin + 30, headerHeight, paint);
+			}
+
+			string GetLabel(double value)
+			{
+				if (value < 1000)
+					return value.ToString("N0");
+				else
+					return (value / 1000).ToString("N1") + "K";
 			}
 		}
 
@@ -138,36 +191,49 @@ namespace Microcharts
 					var point = points[i];
 
 					var size = entry.Selected ? 20 : this.PointSize;
-					
+
 					if (entry.Selected)
 					{
 						// Line from Point to bottom
 						canvas.DrawLine(point.X, point.Y, point.X, origin, new SKPaint() { Color = new SKColor(255, 255, 255) });
 
 						// Draw Annotation
-						canvas.DrawRoundRect(new SKRect(point.X - 90, point.Y - 70, point.X, point.Y - 20), 5, 5, new SKPaint() { Color = new SKColor(255, 255, 255) });
 						var path = new SKPath();
-						path.MoveTo(point.X, point.Y - 15);
-						path.RLineTo(0, -10);
-						path.RLineTo(-20, 0);
-						path.LineTo(point.X, point.Y - 15);
+
+						if (i == 0) // Inverse
+						{
+							canvas.DrawRoundRect(new SKRect(point.X + 90, point.Y - 70, point.X, point.Y - 20), 5, 5, new SKPaint() { Color = new SKColor(255, 255, 255) });
+							path.MoveTo(point.X, point.Y - 15);
+							path.RLineTo(0, -10);
+							path.RLineTo(20, 0);
+							path.LineTo(point.X, point.Y - 15);
+							canvas.DrawText(entry.AnnotationLabel ?? "$790", point.X + 45, point.Y - 30, new SKPaint() { IsAntialias = true, Color = new SKColor(0, 0, 0), TextAlign = SKTextAlign.Center, TextSize = 20 });
+							canvas.DrawText(entry.AnnotationHeadingLabel ?? "3/14 - 7/14", point.X + 45, point.Y - 55, new SKPaint() { IsAntialias = true, Color = new SKColor(61, 61, 61), TextAlign = SKTextAlign.Center, TextSize = 11 });
+							// TODO: SkTypeface.FromFile("path/to/typeface.ttf");
+						}
+						else
+						{
+							canvas.DrawRoundRect(new SKRect(point.X - 90, point.Y - 70, point.X, point.Y - 20), 5, 5, new SKPaint() { Color = new SKColor(255, 255, 255) });
+							path.MoveTo(point.X, point.Y - 15);
+							path.RLineTo(0, -10);
+							path.RLineTo(-20, 0);
+							path.LineTo(point.X, point.Y - 15);
+							canvas.DrawText(entry.AnnotationLabel ?? "$790", point.X - 45, point.Y - 30, new SKPaint() { IsAntialias = true, Color = new SKColor(0, 0, 0), TextAlign = SKTextAlign.Center, TextSize = 20 });
+							canvas.DrawText(entry.AnnotationHeadingLabel ?? "3/14 - 7/14", point.X - 45, point.Y - 55, new SKPaint() { IsAntialias = true, Color = new SKColor(61, 61, 61), TextAlign = SKTextAlign.Center, TextSize = 11 });
+							// TODO: SkTypeface.FromFile("path/to/typeface.ttf");
+						}
 
 						canvas.DrawPath(path, new SKPaint() { IsAntialias = true, Color = new SKColor(255, 255, 255), StrokeWidth = 1, Style = SKPaintStyle.StrokeAndFill });
-						canvas.DrawText("$790", point.X - 45, point.Y - 30, new SKPaint() { IsAntialias = true, Color = new SKColor(0, 0, 0), TextAlign = SKTextAlign.Center, TextSize = 20 });
-						canvas.DrawText("3/7 - 3/14", point.X - 45, point.Y - 55, new SKPaint() { IsAntialias = true, Color = new SKColor(61, 61, 61), TextAlign = SKTextAlign.Center, TextSize = 11 });
-						// TODO: SkTypeface.FromFile("path/to/typeface.ttf");
+						
 						canvas.DrawPoint(point, entry.Color, size, this.PointMode);
 						canvas.DrawPoint(point, new SKColor(0, 0, 0), size - 12, this.PointMode);
 					}
 					else
 					{
 						// Line from Point to bottom
-						canvas.DrawLine(point.X, point.Y, point.X, origin, new SKPaint() { Color = new SKColor(255, 255, 255), PathEffect = SKPathEffect.CreateDash(new float[] { 10, 2 }, 20) });
-
+						canvas.DrawLine(point.X, point.Y, point.X, origin, new SKPaint() { Color = new SKColor(255, 255, 255, 127), PathEffect = SKPathEffect.CreateDash(new float[] { 10, 2 }, 20) });
 						canvas.DrawPoint(point, entry.Color, size, this.PointMode);
 					}
-
-
 
 					AddTouchHandler(new Rectangle(new Point(point.X - 20, point.Y - 20), new Size(40, 40)), () =>
 					{
